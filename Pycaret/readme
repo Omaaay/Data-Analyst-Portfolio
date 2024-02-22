@@ -1,0 +1,25 @@
+# Pycaret 
+PyCaret은 python용 low-code open-source  ML 라이브러리이다. 
+기본적으로 sklearn 및 다른 라이브러리들을 포함하고 있어, 다양한 모델을 시도하고, 교차 검증과 앙상블까지 간단한 코드로 수행할 수 있는 Auto ML이다. 
+머신러닝에 익숙하지 않는 사람도 아주 쉽고 간편하게 머신러닝을 돌릴 수 있다. 
+
+------
+## AutoML 언제 사용하면 좋을까?
+프로젝트를 진행하면서 어떤 알고리즘으로 먼저 테스트해봐야 할지 감이 안잡힐 때 Auto ML을 사용하면 편하다. 
+하지만 PyCaret의 경우 세부적인 전처리에 대해서 유연하지 못하기때문에 추후 분석을 위해서는 Sklearn를 사용하는 것이 좋다. 
+
+------
+## AutoML using PyCaret - Classification
+PyCaret으로 분류 머신러닝 모델을 만드는 단계는 다음과 같다. 
+
+1. 분석 환경 만들기(Setup)
+# 분류 패키지의 모든 모듈을 임포트한다.
+from pycaret.classification import *
+
+#환경 설정
+setup()
+
+
+
+#시각화 -SHAP 
+https://www.kaggle.com/code/dansbecker/shap-values/tutorial
