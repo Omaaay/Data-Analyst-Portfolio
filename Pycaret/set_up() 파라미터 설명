@@ -1,0 +1,88 @@
+# pycaret setup 메소드 파라미터
+
+data : 데이터셋 (데이터 프레임)
+
+targe t: 타겟컬럼 이름 또는 컬럼의 인덱스 (default=-1)
+
+train_size : data에 정의된 데이터셋에서 훈련세트 사이즈 (default=0.7 / 0.7 = 70%) / test_data이 None이 아니라면 무시됨
+
+test_data : 테스트 데이터셋 (데이터 프레임)
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+아래 특성과 관련된 파라미터는 setup 설정시 pycaret이 자동으로 데이터셋에 대한 dtype, 값을 확인 후 적용해준다.
+잘못 적용된 특성에 대해서 직접 해당 파라미터의 값을 설정해줄 수 있다.
+
+ordinal_features : 순서형 특성 / {"특성 이름": [순서...]} 
+	ex) {"grade": ["G", "F", "E", "C", "B", "A"], 
+	     "emp_length": ["< 1 year", "1 year", "2 years", "3 years", "4 years", "5 years", "6 years", "7 years", "8 years", "9 years", "10+ years"], 
+	     "verification_status": ["Not Verified", "Source Verified", "Verified"]}
+
+numeric_features : 연속형 특성 / ["특성 이름", ...]
+
+categorical_features : 범주형 특성 / ["특성 이름", ...]
+
+date_features : 날짜형 특성 / ["특성 이름", ...]
+
+text_features : 텍스트형 특성 / ["특성 이름", ...] -> 자연어 처리 할때 사용
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+ignore_features : 무시할 특성 / ["특성 이름", ...] -> 해당 특성들은 전처리때 자동으로 drop된다.
+
+keep_features : 유지할 특성 / ["특성 이름", ...] -> 해당 특성들은 전처리의 영향을 받지 않고, 절대 drop되지 않는다 (PCA, Feature Selection 등 에서)
+
+preprocess : 자동으로 전처리를 적용할지 / True (기본값), False
+
+create_date_columns : date_features에 정의된 컬럼의 모든값에 대해서 지정한 column을 만든다 / ['day', 'month', 'year']
+
+imputation_type : 결측치 대체에 사용할 임퓨터 / "simple" (기본값), "iterative"
+
+numeric_imputation : numeric_features 특성에 대해서 결측치 대체에 사용할 값 "mean" (기본값), 
+								 "drop" : 결측치 행 drop
+								 "median"
+								 "mode" : 최빈값
+								 "knn": KNNImputer 사용
+								 또는 상수 (int, float)
+
+categorical_imputation : categorical_features 특성에 대해서 결측치 대체에 사용할 값 "mode" (기본값)
+								        "drop" : 결측치 행 drop
+								       또는 문자열 (str)
+
+numeric_iterative_imputer : imputation_typ이 "iterative" 일때 numeric_features 특성에 대해서 결측치 대체에 사용할 모델 "lightgbm" (기본값)
+
+categorical_iterative_imputer : imputation_typ이 "iterative" 일때 categorical_features 특성에 대해서 결측치 대체에 사용할 모델 "lightgbm" (기본값)
+    
+max_encoding_ohe : categorical_features 특성에 대해서 원-핫 인코딩을 적용할 최대 unique값 갯수. 25 (기본값)
+										   0 이하로 설정시 모든 categorical_features 특성이
+										   원-핫 인코딩으로 변환
+
+encoding_method : max_encoding_ohe에 의해 변환되지 못한 categorical_features 특성에 사용할 변환기, 기본값으로 TargetEncoder가 사용
+									category_encoders에 정의된 오브젝트를 줄 수 있다.
+
+fix_imbalance : 타겟 균형 여부 / False (기본값), True
+
+fix_imbalance_method : fix_imbalance가 True 일때, 훈련 데이터세트에 사용 할 리샘플러 "SMOTE" (기본값)
+									"randomundersampler"
+									"randomoversampler"
+									등 imblearn에서 정의된 오브젝트를 줄 수 있다.
+
+transformation : 분포 변환 적용 여부 / False (기본값), True
+
+transformation_method : transformation가 True일때, 훈련, 테스트 데이터에 사용할 변환기 "yeo-johnson" (기본값)
+									   "quantile"
+
+normalize : 정규화 적용 여부 / False (기본값), True
+
+normalize_method : normalize가 True일때, 훈련, 테스트 데이터에 사용할 변환기 / "zscore" (기본값) : StandardScaler()
+								     "minmax" : MinMaxScaler()
+								     "maxabs" : MaxAbsScaler()
+								     "robust" : RobustScaler()
+
+custom_pipeline : 사용자 정의 파이프라인 / 파이프라인 객체, 또는 변환기 객체
+
+custom_pipeline_position : 사용자 정의 파이프라인의 인덱스 위치 / -1 (기본값 / 맨 뒤)
+
+fold : cv횟수 / 10 (기본값)
+
+session_id : random_state, 모든 변환기, shuffle 등 모든 random_state값이 해당 값으로 설정됨
