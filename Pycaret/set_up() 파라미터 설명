@@ -67,10 +67,9 @@ fix_imbalance_method : fix_imbalance가 True 일때, 훈련 데이터세트에 �
 									"randomoversampler"
 									등 imblearn에서 정의된 오브젝트를 줄 수 있다.
 
-transformation : 분포 변환 적용 여부 / False (기본값), True
+transformation : True로 설정하면 Gaussian과 같은 형태로 바꿔줍니다.
 
-transformation_method : transformation가 True일때, 훈련, 테스트 데이터에 사용할 변환기 "yeo-johnson" (기본값)
-									   "quantile"
+transformation_method : transformation이 True일때만 작동하며, default 'yeo-johnson'이고 'quantile'로 바꿔줄 수 있다.
 
 normalize : 정규화 적용 여부 / False (기본값), True
 
@@ -86,3 +85,19 @@ custom_pipeline_position : 사용자 정의 파이프라인의 인덱스 위치 
 fold : cv횟수 / 10 (기본값)
 
 session_id : random_state, 모든 변환기, shuffle 등 모든 random_state값이 해당 값으로 설정됨
+
+ignore_low_variance : True로 설정하면 범주형 변수 중에 변수중요도가 낮은 변수를 삭제
+
+combine_rare_levels : True로 설정하면 범주형 변수 중에 적게 나타난 범주를 하나로 합친다.
+
+rare_level_threshold : default 0.1로 설정되어 있으며, catetory별 통합 기준을 0.1로 설정한다.
+
+remove_multicollinearity : True로 설정하면 다중공선성을 가지고 있는 변수 두개 중 target과 correlation이 더 낮은 변수를 삭제
+
+multicollinearity_threshold : default 0.95로 설정되어 있으며, 다중공선성의 삭제 기준을 0.95로 설정한다.
+
+group_features : 비슷한 특징을 가진 변수를 묶을 수 있다.
+
+log_experiment : MLFlow에 log가 기록된다. 
+
+experiment_name : MLFlow에 log를 기록할 이름을 입력한다.
