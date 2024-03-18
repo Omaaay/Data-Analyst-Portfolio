@@ -96,7 +96,7 @@ if 'data' in st.session_state:
     data = st.session_state.data
     colors = st.session_state.colors
 else:
-    st.switch_page("Main.py")
+    st.switch_page("P2P_streamlit/Main.py")
 
 
 # CSS로 버튼 center
@@ -240,13 +240,13 @@ col1, col2, col3 = st.columns(3)
 
 with col1:
     if st.button("Main"):
-        st.switch_page("Main.py")
+        st.switch_page("P2P_streamlit/Main.py")
 with col2:
     if st.button("Analyst"):
-        st.switch_page("pages/Analyst.py")
+        st.switch_page("P2P_streamlit/pages/Analyst.py")
 with col3:
     if st.button("Investor"):
-        st.switch_page("pages/Investor.py")
+        st.switch_page("P2P_streamlit/pages/Investor.py")
 
 ####
 # st.divider()
@@ -415,7 +415,7 @@ with tab5:
             else:
                 st.markdown("")
         with col2:
-            with open("img/model.png", "rb") as image_file:
+            with open("P2P_streamlit/img/model.png", "rb") as image_file:
                 image_base64 = base64.b64encode(image_file.read()).decode("utf-8")
 
             html_content = f"""
