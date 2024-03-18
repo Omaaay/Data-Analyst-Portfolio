@@ -53,7 +53,7 @@ st.set_page_config(initial_sidebar_state='collapsed', layout='wide')
 # 데이터 캐싱
 @st.cache_data
 def get_model():
-    model = joblib.load("model/final_model2.pkl")
+    model = joblib.load("P2P_streamlit/model/final_model2.pkl")
     return model
 
 def choice_random(data):
