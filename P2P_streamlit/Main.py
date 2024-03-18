@@ -18,7 +18,7 @@ st.set_page_config(initial_sidebar_state='collapsed', layout='wide')
 # csv 캐싱, 변수 할당
 @st.cache_data
 def load_data():
-    accept = pd.read_csv("data/dashboard_data2.csv", low_memory=False)
+    accept = pd.read_csv("P2P_streamlit/data/dashboard_data2.csv", low_memory=False)
     target = "loan_status"
     X, y = accept.loc[:, [column for column in accept.columns if column != target]], accept[target]
     data = pd.concat((X, y ), axis=1).reset_index(drop=True)
