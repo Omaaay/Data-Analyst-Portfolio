@@ -188,13 +188,13 @@ col1, col2, col3 = st.columns(3)
 
 with col1:
     if st.button("Main"):
-        st.switch_page("P2P_streamlit/Main.py")
+        st.switch_page("Main.py")
 with col2:
     if st.button("Analyst"):
-        st.switch_page("P2P_streamlit/pages/Analyst.py")
+        st.switch_page("pages/Analyst.py")
 with col3:
     if st.button("Investor"):
-        st.switch_page("P2P_streamlit/pages/Investor.py")
+        st.switch_page("pages/Investor.py")
 
 
 ####
@@ -206,10 +206,10 @@ st.divider()
 col1, col2 = st.columns(2)
 with col1:
     if st.button("Analyst",key=1, use_container_width=True):
-        st.switch_page("P2P_streamlit/pages/Analyst.py")
+        st.switch_page("pages/Analyst.py")
 with col2:
     if st.button("Investor",key=2, use_container_width=True):
-        st.switch_page("P2P_streamlit/pages/Investor.py")
+        st.switch_page("pages/Investor.py")
 
 ####
 st.divider()
