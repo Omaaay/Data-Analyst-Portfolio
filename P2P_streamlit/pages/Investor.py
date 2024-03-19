@@ -96,8 +96,7 @@ if 'data' in st.session_state:
     data = st.session_state.data
     colors = st.session_state.colors
 else:
-    st.switch_page("
-    Main.py")
+    st.switch_page("Main.py")
 
 
 # CSS로 버튼 center
