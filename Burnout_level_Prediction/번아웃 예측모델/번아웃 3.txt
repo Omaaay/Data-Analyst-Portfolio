@@ -1,0 +1,69 @@
+It would be useful to convert these features,
+
+Gender
+Company Type
+WFH Setup Available
+to binary values by one-hot encoding.
+
+
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+
+
+pd.cut이유: 
+번아웃 비율의 값을 번아울 레벨로 구간화하여 직원의 번아웃 정도를 수월하게 파악하고 관리에 편리하도록 
+직원들이 번아웃 등급을 매겨 직관적으로 상태를 확인할 수 있도록.
+-> 직원 관리 차원에서 더 용이한 데이터 형태로 변환하는 것 
+
+
+# 예측할 값인 Burn Level 특성 추가 from Burn Rate by pd.cut Burn Rate
+# Binning 
+# 구간화 : 
+
+
+from sklearn.preprocessing import OneHotEncoder
+
+at_pipeline = make_pipeline(
+    SimpleImputer(strategy='most_frequent'), 
+    OneHotEncoder(handle_unknown='ignore') #카테고리 결측값일 때 ignore
+)
+
+#preprocessing = ColumnTransformer([
+#    ('num', num_pipeline, make_column_selector(dtype_include=np.number)),
+ #   ('cat', cat_pipeline, make_column_selector(dtype_include=object))
+#])
+
+preprocessing = make_column_transformer(
+    (num_pipeline, make_column_selector(dtype_include=np.number)),
+    (cat_pipeline, make_column_selector(dtype_include=object))
+)
+
+
+
+
+
+best model : 가장 성능이 좋았던 것
+
+
+
+상관관계가 높은 특성들:
+
+두 특성이 강한 상관관계에 있으면, 하나를 제거해도 다른 하나의 정보를 얻을 수 있을 것입니다. 따라서 높은 상관관계가 있는 특성들 중 하나를 제거하는 것은 중복된 정보를 줄이는 데 도움이 될 수 있습니다.
+
+
+
+-> 0.7이상으로 독립 변수간 상관계수가 높은 변수들
+Designation 삭제 
+
+
+Resource Allocation <-> Designation : 0.88
+Resource Allocation <-> Mental Fatigue Score : 0.8
+
+Resource Allocation  삭제 ! 
+
+
+
+
+from xgboost import XGBClassifier
+
+

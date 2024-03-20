@@ -1,0 +1,149 @@
+데이터의 논리적 구조 
+개체(Entity) : 데이터 베이스에서 정보를 저장하는 기본 단위. 
+
+속성(Attribute) : 개체가 가지고 있는 특성이나 데이터의 특징. 고객 개체의 속성- 이름 , 주소, 전화번호 등
+
+릴레이션(Relationship): 두 개체 간의 연관성이나 상호작용. 
+주만-고객 관계가 있을 수 ㅇㅇ
+
+키(Key) : 데이터 베이스 개체 식별에 사용되는 키, 고유한 키 
+
+Burn Rate - 0.0~1.0 연속적인 데이터 
+0.0~1.0 사이 0.1씩 구간화 진행 (10개 Burnout Level)
+
+사이킷런 라이브러리 - 전처리 
+sklearn preproscessing 도큐먼트 공부 
+
+[결측값 처리]
+일반적으로 독립변수에 NaN(결치값)이 있을경우 => 평균화기법을 이용
+              종속변수에 NaN(결치값)이 있을경우 => 예측기법(knn 알고리즘)
+
+많이 쓰이나요? 네이버에서도 실제로 현업에서 사용
+K = 1 이 항상은 아니지만 머신러닝보다 오차율이 적을때도 많다
+K = 1 이 성능이 많이 괜찮다라고 수학적으로 증명되었다
+
+
+code>
+from sklearn.import SimpleImputer 
+
+imp1 = SimpleImputer(missing_values=np.nan, strategy='most_frequent')
+
+1.Simple Imputer 사용
+parameters 부분
+strategy 변수 중요!
+mean / median / most_frequent / constant(특정 상수) 
+
+1-2. K-NN 대체 
+K-Nearest Neighbor 알고리즘을 사용해 가장 근접한 데이터를 k개 찾는 방식
+
+KDTree를 생성한 후 가장 가까운 이웃을 찾는다. K개의 NN을 찾은 뒤에 거리에 따라 가중평균을 취한다. 
+
+
+
+
+2. 성별 -> 0,1 변환
+OneHotEncoder 
+from sklearn.preprocessing import OneHotEncoder 
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeling import Pipeline
+from sklearn.preprocessing import StandardScaler 
+
+preprocessing_pipeling = Pipeline([
+# 파이프라인 정의
+preprocessing_pipeline = Pipeline([
+    ('one_hot_encoder', ColumnTransformer(
+        transformers=[
+            ('성별_encoding', OneHotEncoder(), ['성별'])
+        ],
+        remainder='passthrough'
+    )),
+    ('scaler', StandardScaler())  # 다른 전처리 단계
+])
+
+# 전처리 파이프라인을 적용하여 데이터를 변환
+X_transformed = preprocessing_pipeline.fit_transform(df)
+
+# 결과 출력
+print(X_transformed)
+
+
+
+Rate 를 예측할 때 평가 지표 :
+R 제곱(결정 계수) - 위에서 설명한 대로 이 측정항목은 모델의 공변량으로 설명되는 분산의 비율을 설명합니다. 범위는 0에서 1 사이입니다. 일반적으로 더 높은 값이 바람직하지만 데이터 품질과 영역에 따라 다릅니다. 예를 들어, 데이터에 노이즈가 있는 경우 낮은 R² 값의 모델을 기꺼이 받아들일 것입니다. 그러나 모델 적합성을 결정하려면 R²보다 조정된 R²를 고려하는 것이 좋습니다.
+
+burnout Level 
+-accuracy 
+
+해커얼스
+https://www.hackerearth.com/practice/machine-learning/machine-learning-algorithms/beginners-guide-regression-analysis-plot-interpretations/tutorial/
+
+
+그룹별 통계값으로 결측치를 대체
+그룹별 특성을 반영하여 결측치를 대체하는 것이 합리적
+
+
+- 정규화 
+
+시계열 / 신경망 - RNN  / LSTN / TDNN 
+
+
+
+
+
+
+- 구간화 Binning 
+bins = [0, 2000. 4000, 6000, 80000]
+pandas pd.cut(열, bins=bins)
+
+<데이터 탐색적 분석>
+1. 직급별 피로도 통계 : 직급이 올라갈수록 
+
+
+
+결측치는 삭제하거나 값을 치환해서 없애주어야한다!
+결측치는 비율에 따라서 처리 방법을 달리한다!
+10% 미만이라면: row를 삭제하거나 치환한다.
+10~50% 사이라면: 모델을 만들어서 처리한다.
+50% 이상이라면: column을 삭제한다.
+
+
+
+
+오늘 해야할 일
+1. train validation 분리 (훈련 / 검증 세트) 
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier 
+
+train_X , valid_X, train_y, vaild_y = \
+train_test_split(df[features], df[target], test_size=0.2, random_state=42, stratify=df[target])
+
+stratify=df['label']: 레이블을 기준으로 계층적 샘플링을 수행합니다. 이렇게 함으로써 학습용과 검증용 데이터셋에서 각 레이블의 분포가 유지됩니다.
+whh? ' 각 계층에서의 클래스 분포가 원본 데이터셋과 유사하게 유지'
+
+
+전처리 파이프라인 구축하기 
+모든 전처리 과정을 하나의 파이프라인으로 만들어 데이터를 이 파이프라인에 넣어주게되면 모델 돌리기에 적합한 형태의 형식의 데이터로 나올 수 있게 만들어 줄 수 있다. 
+
+유니크한 ID(고유한 식별자)는 머신러닝 모델에서 제외한느 것이 일반적이다.
+why? 1. 고유한 ID는 각각의 데이터 포인트를 식별하는 데 사용되기 때문에 특정 ID에 대한 패턴을 학습하는 것은 모델에게 유용하지 않다.
+2. overfitting의 위험 : 특히 해당 ID에 대한 예측을 너무 강조하여 모델이 특정 ID에만 잘 작동하고 다른 데이터에는 잘 일반화되지 않는 과적합 문제 발생할 수 있다. 
+3. 일반화 능력 강화 : 특별한 경우에 국한되지 않도록 학습하는 것이 중요하다. 
+
+
+
+
+2. 데이터 전처리할 것 정리하기 
+Date of Joinning - 전부 2008 년도 데이터 
+Data 변환 후 월과 
+dataframe['month'] = dataframe['date'].dt.month
+dataframe['day'] = dataframe['date'].dt.day
+
+
+Gender / Company Type / WFH Setup Available / - 2진 분류 카테고리 변수 : '원핫엔코딩'
+
+독립변수 - 평균량 대치 'SimpleImputer'
+Resource Allocation 결측치대체시 3.0 이런식으로 기입되도록 해야함 
+Mental Fatigue Score 결측치대체시 3.8 이런식으로 기입되도록 해야함 
+
+종속변수 - 예측 대치 'KNN'
+Burn Rate 결측치 대체시 최대 2자리 0.3 혹은 0.38

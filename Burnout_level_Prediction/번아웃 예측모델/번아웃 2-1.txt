@@ -1,0 +1,93 @@
+Do Nothing:
+첫번째 방법, 아무것도 하지 마라. 알고리즘이 알아서 결측값을 핸들링하게 두면 된다. 일부 알고리즘들은 결측값을 파악하여, 손실함수 값을 기준으로 결측값을 어떻게 채우는 것이 가장 나은 성능을 갖는지 학습한다(ex. XGBoost). 또 어떤 알고리즘들은 그냥 결측값을 무시해 버린다(ex. LightGBM - use_missing=False).
+
+KNN 는 아웃라이어에 민감하다.
+
+seaborn 결측치 시각화
+sns.heatmap(burnout.isnull(), cbar=False)
+
+Tenure in Days = (Current Date – Employee Start Date + 1)
+근무 기간(일) = (현재 날짜 – 직원 시작일 + 1)
+
+It's great to hear that you learned something new from my notebook! Thanks a lot!
+
+
+Feature Engineering 
+
+categorize features 
+-> 원 핫 인코딩 
+ couple of binary features
+
+It would be useful to convert these features,
+
+Gender
+Company Type
+WFH Setup Available
+to binary values by one-hot encoding.
+
+
+2.2.2 The Column: "Date of Joining"
+All the employees in the dataset seem to join in 2008. 
+
+
+베이스 모델이 무엇인
+
+HackerEarth MAchine Learning Challenge
+
+predict the employee burn out level
+
+About Challenge 
+To win in the marketplace, you must first win in the workplace. ~ Doug Conant
+
+And rightly so! Happy and healthy employees are indisputably more productive at work, and in turn, help the business flourish profoundly.
+
+목차 
+1. Introduction
+
+Dataset : 
+Employee ID: The unique ID allocated for each employee (example: fffe390032003000)
+Date of Joining: The date-time when the employee has joined the organization (example: 2008-12-30)
+Gender: The gender of the employee (Male/Female)
+Company Type: The type of company where the employee is working (Service/Product)
+WFH Setup Available: Is the work from home facility available for the employee (Yes/No)
+Designation: The designation of the employee of work in the organization.
+In the range of [0.0, 5.0] bigger is higher designation.
+Resource Allocation: The amount of resource allocated to the employee to work, ie. number of working hours.
+In the range of [1.0, 10.0] (higher means more resource)
+Mental Fatigue Score: The level of fatigue mentally the employee is facing.
+In the range of [0.0, 10.0] where 0.0 means no fatigue and 10.0 means completely fatigue.
+Burn Rate: The value we need to predict for each employee telling the rate of Bur out while working.
+In the range of [0.0, 1.0] where the higher the value is more is the burn out.
+
+1.1 Imports & Dataset 
+
+2. Preprocessing 
+2.1 Explore The Dataset
+2.2 Processing The Variables
+2.2.1 One-Hot Encoding
+get dummies- drop_frist=True
+
+완2.2.2 The Column : "Date of Joining"
+All the employees in the dataset seem to join in 2008. Thus, omiting the year and converting the dates to integers
+
+완 상관계수 그리기 
+burnout_corr = burnout.corr()
+
+fig, ax = plt.figure(1,1, figsize=(8,6))
+sns.heatmap(data=burnout_corr, annot=True, fmt=".2f", vmin=-1, vmax=1, cmap='inferno', ax=ax)
+ax.set_yticks(rotation=0)
+plt.show()
+
+
+시각화 꿀팁 
+fontdict=axis_font
+ c="darkgreen"
+
+3. Training & Validation
+
+3.1 Data Preparation 
+
+train / vaild 나누기 
+
+
+
